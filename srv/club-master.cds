@@ -1,4 +1,6 @@
-using {club as db} from '../db/club';
+using {club} from '../db/club';
+using {common} from '../db/common';
+
 
 service ClubMasterService @(
   path    : '/club-master',
@@ -8,21 +10,31 @@ service ClubMasterService @(
   }]
 ) {
 
-  entity Clubs        as projection on db.Club;
+  entity Clubs        as projection on club.Club;
+
+  entity Countries    as
+    projection on common.Country
+    excluding {
+      descr
+    };
 
   entity MarketSizes  as
-    projection on db.MarketSize
+    projection on club.MarketSize
     excluding {
       multiplier
     }
 
-  entity StadiumTiers as projection on db.StadiumTier;
+  entity StadiumTiers as projection on club.StadiumTier;
 
 }
 
 annotate ClubMasterService.Clubs with @odata.draft.enabled {
-  name @mandatory;
+  name        @mandatory;
+  country     @mandatory;
+  marketSize  @mandatory;
+  stadiumTier @mandatory;
 };
 
+annotate ClubMasterService.Countries with @readonly;
 annotate ClubMasterService.MarketSizes with @readonly;
 annotate ClubMasterService.StadiumTiers with @readonly;
