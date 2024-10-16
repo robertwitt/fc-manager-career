@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1" />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1" />
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1" />
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="ClubMasterService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Clubs" EntityType="ClubMasterService.Clubs">
+          <NavigationPropertyBinding Path="SiblingEntity" Target="Clubs" />
+        </EntitySet>
+      </EntityContainer>
+      <EntityType Name="Clubs">
+        <Key>
+          <PropertyRef Name="ID" />
+          <PropertyRef Name="IsActiveEntity" />
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+        <Property Name="name" Type="Edm.String" MaxLength="40" />
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+        <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+        <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+        <NavigationProperty Name="DraftAdministrativeData"
+          Type="ClubMasterService.DraftAdministrativeData" ContainsTarget="true" />
+        <NavigationProperty Name="SiblingEntity" Type="ClubMasterService.Clubs" />
+      </EntityType>
+      <EntityType Name="DraftAdministrativeData">
+        <Key>
+          <PropertyRef Name="DraftUUID" />
+        </Key>
+        <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+        <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256" />
+        <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean" />
+        <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+        <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256" />
+        <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256" />
+        <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean" />
+      </EntityType>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="ClubMasterService.Clubs" />
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+        <ReturnType Type="ClubMasterService.Clubs" />
+      </Action>
+      <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="ClubMasterService.Clubs" />
+        <ReturnType Type="ClubMasterService.Clubs" />
+      </Action>
+      <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="ClubMasterService.Clubs" />
+        <Parameter Name="PreserveChanges" Type="Edm.Boolean" />
+        <ReturnType Type="ClubMasterService.Clubs" />
+      </Action>
+      <Annotations Target="ClubMasterService.Clubs">
+        <Annotation Term="Common.Label" String="{i18n>Club}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.EntityContainer/Clubs">
+        <Annotation Term="Common.DraftRoot">
+          <Record Type="Common.DraftRootType">
+            <PropertyValue Property="ActivationAction" String="ClubMasterService.draftActivate" />
+            <PropertyValue Property="EditAction" String="ClubMasterService.draftEdit" />
+            <PropertyValue Property="PreparationAction" String="ClubMasterService.draftPrepare" />
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ClubMasterService.Clubs/name">
+        <Annotation Term="Common.Label" String="{i18n>ClubName}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.Clubs/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.Clubs/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.Clubs/HasDraftEntity">
+        <Annotation Term="UI.Hidden" Bool="true" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.Clubs/DraftAdministrativeData">
+        <Annotation Term="UI.Hidden" Bool="true" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.DraftAdministrativeData">
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.DraftAdministrativeData/DraftUUID">
+        <Annotation Term="UI.Hidden" Bool="true" />
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.DraftAdministrativeData/CreationDateTime">
+        <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.DraftAdministrativeData/CreatedByUser">
+        <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.DraftAdministrativeData/DraftIsCreatedByMe">
+        <Annotation Term="UI.Hidden" Bool="true" />
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.DraftAdministrativeData/LastChangeDateTime">
+        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.DraftAdministrativeData/LastChangedByUser">
+        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.DraftAdministrativeData/InProcessByUser">
+        <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}" />
+      </Annotations>
+      <Annotations Target="ClubMasterService.DraftAdministrativeData/DraftIsProcessedByMe">
+        <Annotation Term="UI.Hidden" Bool="true" />
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}" />
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
