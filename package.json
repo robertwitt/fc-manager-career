@@ -30,6 +30,19 @@
       "native_hana_associations": false
     },
     "requires": {
+      "[development]": {
+        "auth": {
+          "kind": "mocked",
+          "users": {
+            "admin": {
+              "password": "",
+              "roles": [
+                "Administrator"
+              ]
+            }
+          }
+        }
+      },
       "[production]": {
         "db": "hana",
         "auth": "xsuaa"
