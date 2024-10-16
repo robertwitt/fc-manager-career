@@ -40,7 +40,7 @@
             "parameters": {},
             "additionalParameters": "allowed"
           },
-          "semanticObject": "club-master",
+          "semanticObject": "clubmaster",
           "action": "manage",
           "title": "{{flpTitle}}",
           "subTitle": "{{flpSubtitle}}",
