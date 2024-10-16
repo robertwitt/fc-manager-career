@@ -6,4 +6,6 @@ service ClubMasterService @(path: '/club-master') {
 
 }
 
-annotate ClubMasterService.Clubs with @odata.draft.enabled;
+annotate ClubMasterService.Clubs with @odata.draft.enabled {
+  name @mandatory;
+};
