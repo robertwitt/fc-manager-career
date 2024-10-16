@@ -36,6 +36,43 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: fc-manager-career-db
+  - name: fc-manager-career-destinations
+    type: com.sap.application.content
+    requires:
+      - name: fc-manager-career-auth
+        parameters:
+          service-key:
+            name: fc-manager-career-auth-key
+      - name: fc-manager-career-html5-repo-host
+        parameters:
+          service-key:
+            name: fc-manager-career-html5-repo-host-key
+      - name: srv-api
+      - name: fc-manager-career-destination
+        parameters:
+          content-target: true
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Authentication: OAuth2UserTokenExchange
+              Name: fcmanagercareer-app-srv
+              TokenServiceInstanceName: fc-manager-career-auth
+              TokenServiceKeyName: fc-manager-career-auth-key
+              URL: '~{srv-api/srv-url}'
+              sap.cloud.service: fcmanagercareer.service
+            - Name: fc-manager-career-html5-repo-host
+              ServiceInstanceName: fc-manager-career-html5-repo-host
+              ServiceKeyName: fc-manager-career-html5-repo-host-key
+              sap.cloud.service: fcmanagercareer.service
+            - Authentication: OAuth2UserTokenExchange
+              Name: fc-manager-career-auth
+              ServiceInstanceName: fc-manager-career-auth
+              ServiceKeyName: fc-manager-career-auth-key
+              sap.cloud.service: fcmanagercareer.service
+          existing_destinations_policy: update
+    build-parameters:
+      no-source: true
 
 resources:
   - name: fc-manager-career-db
@@ -57,3 +94,15 @@ resources:
             description: Administrate basic configuration and master data of FC Career Mode Apps
             role-template-references:
               - $XSAPPNAME.Administrator
+  - name: fc-manager-career-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+  - name: fc-manager-career-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
