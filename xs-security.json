@@ -1,0 +1,17 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Administrator",
+      "description": "Administrate basic configuration and master data"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Administrator",
+      "description": "Administrate basic configuration and master data",
+      "scope-references": ["$XSAPPNAME.Administrator"],
+      "attribute-references": []
+    }
+  ]
+}
