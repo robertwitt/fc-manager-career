@@ -1,0 +1,6 @@
+code,name,descr,multiplier
+1,Small,"< 300,000",0.0
+2,Medium,"300,000 – 1,000,000",0.05
+3,Large,"1,000,000 – 4,000,000",0.1
+4,Huge,"4,000,000+",0.15
+5,Global,"4,000,000 + global reach",0.2
