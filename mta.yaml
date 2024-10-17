@@ -77,9 +77,23 @@ modules:
             - manageclubmaster.zip
           name: manageclubmaster
           target-path: resources/
+        - artifacts:
+            - startmanagercareer.zip
+          name: startmanagercareer
+          target-path: resources/
   - name: manageclubmaster
     type: html5
     path: app/manage-club-master
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: startmanagercareer
+    type: html5
+    path: app/start-manager-career
     build-parameters:
       build-result: dist
       builder: custom

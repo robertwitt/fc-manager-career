@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1" />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1" />
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1" />
+  </edmx:Reference>
+  <edmx:Reference
+    Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+    <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1" />
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="ManagerCareerService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="ManagerCareers" EntityType="ManagerCareerService.ManagerCareers">
+          <NavigationPropertyBinding Path="starting_season" Target="Season" />
+          <NavigationPropertyBinding Path="starting_league" Target="League" />
+          <NavigationPropertyBinding Path="starting_internationalCompetition"
+            Target="InternationalCompetition" />
+          <NavigationPropertyBinding Path="SiblingEntity" Target="ManagerCareers" />
+        </EntitySet>
+        <EntitySet Name="Season" EntityType="ManagerCareerService.Season">
+          <NavigationPropertyBinding Path="texts" Target="Season_texts" />
+          <NavigationPropertyBinding Path="localized" Target="Season_texts" />
+        </EntitySet>
+        <EntitySet Name="League" EntityType="ManagerCareerService.League">
+          <NavigationPropertyBinding Path="country" Target="Country" />
+          <NavigationPropertyBinding Path="texts" Target="League_texts" />
+          <NavigationPropertyBinding Path="localized" Target="League_texts" />
+        </EntitySet>
+        <EntitySet Name="InternationalCompetition"
+          EntityType="ManagerCareerService.InternationalCompetition">
+          <NavigationPropertyBinding Path="texts" Target="InternationalCompetition_texts" />
+          <NavigationPropertyBinding Path="localized" Target="InternationalCompetition_texts" />
+        </EntitySet>
+        <EntitySet Name="Country" EntityType="ManagerCareerService.Country">
+          <NavigationPropertyBinding Path="scoutingRegion" Target="ScoutingRegion" />
+          <NavigationPropertyBinding Path="texts" Target="Country_texts" />
+          <NavigationPropertyBinding Path="localized" Target="Country_texts" />
+        </EntitySet>
+        <EntitySet Name="ScoutingRegion" EntityType="ManagerCareerService.ScoutingRegion">
+          <NavigationPropertyBinding Path="countries" Target="Country" />
+          <NavigationPropertyBinding Path="texts" Target="ScoutingRegion_texts" />
+          <NavigationPropertyBinding Path="localized" Target="ScoutingRegion_texts" />
+        </EntitySet>
+        <EntitySet Name="Season_texts" EntityType="ManagerCareerService.Season_texts" />
+        <EntitySet Name="League_texts" EntityType="ManagerCareerService.League_texts" />
+        <EntitySet Name="InternationalCompetition_texts"
+          EntityType="ManagerCareerService.InternationalCompetition_texts" />
+        <EntitySet Name="Country_texts" EntityType="ManagerCareerService.Country_texts" />
+        <EntitySet Name="ScoutingRegion_texts"
+          EntityType="ManagerCareerService.ScoutingRegion_texts" />
+      </EntityContainer>
+      <EntityType Name="ManagerCareers">
+        <Key>
+          <PropertyRef Name="ID" />
+          <PropertyRef Name="IsActiveEntity" />
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false" />
+        <Property Name="club_ID" Type="Edm.Guid" />
+        <NavigationProperty Name="starting_season" Type="ManagerCareerService.Season">
+          <ReferentialConstraint Property="starting_season_year" ReferencedProperty="year" />
+        </NavigationProperty>
+        <Property Name="starting_season_year" Type="Edm.Int32" />
+        <NavigationProperty Name="starting_league" Type="ManagerCareerService.League">
+          <ReferentialConstraint Property="starting_league_code" ReferencedProperty="code" />
+        </NavigationProperty>
+        <Property Name="starting_league_code" Type="Edm.String" MaxLength="4" />
+        <NavigationProperty Name="starting_internationalCompetition"
+          Type="ManagerCareerService.InternationalCompetition">
+          <ReferentialConstraint Property="starting_internationalCompetition_code"
+            ReferencedProperty="code" />
+        </NavigationProperty>
+        <Property Name="starting_internationalCompetition_code" Type="Edm.Int32" />
+        <Property Name="starting_overall" Type="Edm.Int32" />
+        <Property Name="starting_dnaPoints" Type="Edm.Int32" />
+        <Property Name="starting_traitPoints" Type="Edm.Int32" />
+        <Property Name="started" Type="Edm.Boolean" DefaultValue="false" />
+        <Property Name="active" Type="Edm.Boolean" DefaultValue="false" />
+        <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true" />
+        <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+        <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false" />
+        <NavigationProperty Name="DraftAdministrativeData"
+          Type="ManagerCareerService.DraftAdministrativeData" ContainsTarget="true" />
+        <NavigationProperty Name="SiblingEntity" Type="ManagerCareerService.ManagerCareers" />
+      </EntityType>
+      <EntityType Name="Season">
+        <Key>
+          <PropertyRef Name="year" />
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="year" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="texts" Type="Collection(ManagerCareerService.Season_texts)">
+          <OnDelete Action="Cascade" />
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="ManagerCareerService.Season_texts">
+          <ReferentialConstraint Property="year" ReferencedProperty="year" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="League">
+        <Key>
+          <PropertyRef Name="code" />
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="code" Type="Edm.String" MaxLength="4" Nullable="false" />
+        <NavigationProperty Name="country" Type="ManagerCareerService.Country">
+          <ReferentialConstraint Property="country_code" ReferencedProperty="code" />
+        </NavigationProperty>
+        <Property Name="country_code" Type="Edm.String" MaxLength="3" />
+        <Property Name="level" Type="Edm.Int32" />
+        <Property Name="reputation" Type="Edm.Int32" />
+        <NavigationProperty Name="texts" Type="Collection(ManagerCareerService.League_texts)">
+          <OnDelete Action="Cascade" />
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="ManagerCareerService.League_texts">
+          <ReferentialConstraint Property="code" ReferencedProperty="code" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="InternationalCompetition">
+        <Key>
+          <PropertyRef Name="code" />
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="code" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="texts"
+          Type="Collection(ManagerCareerService.InternationalCompetition_texts)">
+          <OnDelete Action="Cascade" />
+        </NavigationProperty>
+        <NavigationProperty Name="localized"
+          Type="ManagerCareerService.InternationalCompetition_texts">
+          <ReferentialConstraint Property="code" ReferencedProperty="code" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Country">
+        <Key>
+          <PropertyRef Name="code" />
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false" />
+        <Property Name="flagUrl" Type="Edm.String" MaxLength="2048" />
+        <NavigationProperty Name="scoutingRegion" Type="ManagerCareerService.ScoutingRegion"
+          Partner="countries">
+          <ReferentialConstraint Property="scoutingRegion_code" ReferencedProperty="code" />
+        </NavigationProperty>
+        <Property Name="scoutingRegion_code" Type="Edm.Int32" />
+        <NavigationProperty Name="texts" Type="Collection(ManagerCareerService.Country_texts)">
+          <OnDelete Action="Cascade" />
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="ManagerCareerService.Country_texts">
+          <ReferentialConstraint Property="code" ReferencedProperty="code" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="ScoutingRegion">
+        <Key>
+          <PropertyRef Name="code" />
+        </Key>
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="code" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="countries" Type="Collection(ManagerCareerService.Country)"
+          Partner="scoutingRegion" />
+        <NavigationProperty Name="texts"
+          Type="Collection(ManagerCareerService.ScoutingRegion_texts)">
+          <OnDelete Action="Cascade" />
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="ManagerCareerService.ScoutingRegion_texts">
+          <ReferentialConstraint Property="code" ReferencedProperty="code" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="DraftAdministrativeData">
+        <Key>
+          <PropertyRef Name="DraftUUID" />
+        </Key>
+        <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+        <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256" />
+        <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean" />
+        <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" />
+        <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256" />
+        <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256" />
+        <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean" />
+      </EntityType>
+      <EntityType Name="Season_texts">
+        <Key>
+          <PropertyRef Name="locale" />
+          <PropertyRef Name="year" />
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false" />
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="year" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="League_texts">
+        <Key>
+          <PropertyRef Name="locale" />
+          <PropertyRef Name="code" />
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false" />
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="code" Type="Edm.String" MaxLength="4" Nullable="false" />
+      </EntityType>
+      <EntityType Name="InternationalCompetition_texts">
+        <Key>
+          <PropertyRef Name="locale" />
+          <PropertyRef Name="code" />
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false" />
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="code" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Country_texts">
+        <Key>
+          <PropertyRef Name="locale" />
+          <PropertyRef Name="code" />
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false" />
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false" />
+      </EntityType>
+      <EntityType Name="ScoutingRegion_texts">
+        <Key>
+          <PropertyRef Name="locale" />
+          <PropertyRef Name="code" />
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false" />
+        <Property Name="name" Type="Edm.String" MaxLength="255" />
+        <Property Name="descr" Type="Edm.String" MaxLength="1000" />
+        <Property Name="code" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="ManagerCareerService.ManagerCareers" />
+        <Parameter Name="SideEffectsQualifier" Type="Edm.String" />
+        <ReturnType Type="ManagerCareerService.ManagerCareers" />
+      </Action>
+      <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="ManagerCareerService.ManagerCareers" />
+        <ReturnType Type="ManagerCareerService.ManagerCareers" />
+      </Action>
+      <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+        <Parameter Name="in" Type="ManagerCareerService.ManagerCareers" />
+        <Parameter Name="PreserveChanges" Type="Edm.Boolean" />
+        <ReturnType Type="ManagerCareerService.ManagerCareers" />
+      </Action>
+      <Annotations Target="ManagerCareerService.ManagerCareers">
+        <Annotation Term="Common.Label" String="{i18n>ManagerCareer}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.EntityContainer/ManagerCareers">
+        <Annotation Term="Common.DraftRoot">
+          <Record Type="Common.DraftRootType">
+            <PropertyValue Property="ActivationAction" String="ManagerCareerService.draftActivate" />
+            <PropertyValue Property="EditAction" String="ManagerCareerService.draftEdit" />
+            <PropertyValue Property="PreparationAction" String="ManagerCareerService.draftPrepare" />
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/club_ID">
+        <Annotation Term="Common.Label" String="{i18n>Club}" />
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/starting_season">
+        <Annotation Term="Common.Label" String="{i18n>Season}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/starting_season_year">
+        <Annotation Term="Common.Label" String="{i18n>Season}" />
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory" />
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="{i18n>Season}" />
+            <PropertyValue Property="CollectionPath" String="Season" />
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="starting_season_year" />
+                  <PropertyValue Property="ValueListProperty" String="year" />
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name" />
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/starting_league">
+        <Annotation Term="Common.Label" String="{i18n>League}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/starting_league_code">
+        <Annotation Term="Common.Label" String="{i18n>League}" />
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory" />
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="{i18n>League}" />
+            <PropertyValue Property="CollectionPath" String="League" />
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="starting_league_code" />
+                  <PropertyValue Property="ValueListProperty" String="code" />
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name" />
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/starting_internationalCompetition">
+        <Annotation Term="Common.Label" String="{i18n>InternationalCompetition}" />
+      </Annotations>
+      <Annotations
+        Target="ManagerCareerService.ManagerCareers/starting_internationalCompetition_code">
+        <Annotation Term="Common.Label" String="{i18n>InternationalCompetition}" />
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory" />
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="{i18n>InternationalCompetition}" />
+            <PropertyValue Property="CollectionPath" String="InternationalCompetition" />
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty"
+                    PropertyPath="starting_internationalCompetition_code" />
+                  <PropertyValue Property="ValueListProperty" String="code" />
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name" />
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/starting_overall">
+        <Annotation Term="Common.Label" String="{i18n>Overall}" />
+        <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory" />
+        <Annotation Term="Validation.Minimum" Int="1" />
+        <Annotation Term="Validation.Maximum" Int="99" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/starting_dnaPoints">
+        <Annotation Term="Common.Label" String="{i18n>DnaPoints}" />
+        <Annotation Term="Core.Computed" Bool="true" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/starting_traitPoints">
+        <Annotation Term="Common.Label" String="{i18n>TraitPoints}" />
+        <Annotation Term="Core.Computed" Bool="true" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/started">
+        <Annotation Term="Common.Label" String="{i18n>CareerStarted}" />
+        <Annotation Term="Core.Computed" Bool="true" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/active">
+        <Annotation Term="Common.Label" String="{i18n>CareerActive}" />
+        <Annotation Term="Core.Computed" Bool="true" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/IsActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/HasActiveEntity">
+        <Annotation Term="UI.Hidden" Bool="true" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/HasDraftEntity">
+        <Annotation Term="UI.Hidden" Bool="true" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ManagerCareers/DraftAdministrativeData">
+        <Annotation Term="UI.Hidden" Bool="true" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Season">
+        <Annotation Term="Common.Label" String="{i18n>Season}" />
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name" />
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Season/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Season/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Season/year">
+        <Annotation Term="Common.Label" String="{i18n>Season}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League">
+        <Annotation Term="Common.Label" String="{i18n>League}" />
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name" />
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League/code">
+        <Annotation Term="Common.Label" String="{i18n>League}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League/country">
+        <Annotation Term="Common.Label" String="{i18n>Country}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League/country_code">
+        <Annotation Term="Common.Label" String="{i18n>Country}" />
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="{i18n>Country}" />
+            <PropertyValue Property="CollectionPath" String="Country" />
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="country_code" />
+                  <PropertyValue Property="ValueListProperty" String="code" />
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name" />
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League/reputation">
+        <Annotation Term="Common.Label" String="{i18n>LeagueReputation}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.InternationalCompetition">
+        <Annotation Term="Common.Label" String="{i18n>InternationalCompetition}" />
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name" />
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.InternationalCompetition/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.InternationalCompetition/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.InternationalCompetition/code">
+        <Annotation Term="Common.Label" String="{i18n>InternationalCompetition}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country">
+        <Annotation Term="Common.Label" String="{i18n>Country}" />
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name" />
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country/code">
+        <Annotation Term="Common.Label" String="{i18n>Code}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country/scoutingRegion">
+        <Annotation Term="Common.Label" String="{i18n>ScoutingRegion}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country/scoutingRegion_code">
+        <Annotation Term="Common.Label" String="{i18n>ScoutingRegion}" />
+        <Annotation Term="Common.ValueList">
+          <Record Type="Common.ValueListType">
+            <PropertyValue Property="Label" String="{i18n>ScoutingRegion}" />
+            <PropertyValue Property="CollectionPath" String="ScoutingRegion" />
+            <PropertyValue Property="Parameters">
+              <Collection>
+                <Record Type="Common.ValueListParameterInOut">
+                  <PropertyValue Property="LocalDataProperty" PropertyPath="scoutingRegion_code" />
+                  <PropertyValue Property="ValueListProperty" String="code" />
+                </Record>
+                <Record Type="Common.ValueListParameterDisplayOnly">
+                  <PropertyValue Property="ValueListProperty" String="name" />
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ScoutingRegion">
+        <Annotation Term="Common.Label" String="{i18n>ScoutingRegion}" />
+        <Annotation Term="UI.Identification">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="name" />
+            </Record>
+          </Collection>
+        </Annotation>
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ScoutingRegion/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ScoutingRegion/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ScoutingRegion/code">
+        <Annotation Term="Common.Label" String="{i18n>Code}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ScoutingRegion/countries">
+        <Annotation Term="Common.Label" String="{i18n>Countries}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.DraftAdministrativeData">
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.DraftAdministrativeData/DraftUUID">
+        <Annotation Term="UI.Hidden" Bool="true" />
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.DraftAdministrativeData/CreationDateTime">
+        <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.DraftAdministrativeData/CreatedByUser">
+        <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.DraftAdministrativeData/DraftIsCreatedByMe">
+        <Annotation Term="UI.Hidden" Bool="true" />
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.DraftAdministrativeData/LastChangeDateTime">
+        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.DraftAdministrativeData/LastChangedByUser">
+        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.DraftAdministrativeData/InProcessByUser">
+        <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.DraftAdministrativeData/DraftIsProcessedByMe">
+        <Annotation Term="UI.Hidden" Bool="true" />
+        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Season_texts/locale">
+        <Annotation Term="Common.Label" String="{i18n>LanguageCode}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Season_texts/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Season_texts/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Season_texts/year">
+        <Annotation Term="Common.Label" String="{i18n>Season}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League_texts/locale">
+        <Annotation Term="Common.Label" String="{i18n>LanguageCode}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League_texts/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League_texts/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.League_texts/code">
+        <Annotation Term="Common.Label" String="{i18n>League}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.InternationalCompetition_texts/locale">
+        <Annotation Term="Common.Label" String="{i18n>LanguageCode}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.InternationalCompetition_texts/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.InternationalCompetition_texts/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.InternationalCompetition_texts/code">
+        <Annotation Term="Common.Label" String="{i18n>InternationalCompetition}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country_texts/locale">
+        <Annotation Term="Common.Label" String="{i18n>LanguageCode}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country_texts/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country_texts/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.Country_texts/code">
+        <Annotation Term="Common.Label" String="{i18n>Code}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ScoutingRegion_texts/locale">
+        <Annotation Term="Common.Label" String="{i18n>LanguageCode}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ScoutingRegion_texts/name">
+        <Annotation Term="Common.Label" String="{i18n>Name}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ScoutingRegion_texts/descr">
+        <Annotation Term="Common.Label" String="{i18n>Description}" />
+      </Annotations>
+      <Annotations Target="ManagerCareerService.ScoutingRegion_texts/code">
+        <Annotation Term="Common.Label" String="{i18n>Code}" />
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
