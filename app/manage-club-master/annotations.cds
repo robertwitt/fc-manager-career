@@ -92,6 +92,11 @@ annotate service.Clubs with @(
                 $Type : 'UI.DataField',
                 Value : badgeUrl,
             },
+            {
+                $Type : 'UI.DataFieldForAction',
+                Action : 'ClubMasterService.updateBadge',
+                Label : '{i18n>UpdateBadge}',
+            },
         ],
     },
 );
@@ -139,5 +144,9 @@ annotate service.Countries with {
         $value : scoutingRegion.name,
         ![@UI.TextArrangement] : #TextOnly
     }
+};
+
+annotate service.Clubs with {
+    badgeUrl @UI.IsImageURL : true
 };
 

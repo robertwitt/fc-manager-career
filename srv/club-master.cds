@@ -10,7 +10,10 @@ service ClubMasterService @(
   }]
 ) {
 
-  entity Clubs        as projection on club.Club;
+  entity Clubs        as projection on club.Club
+    actions {
+      action updateBadge(url : club.Club:badgeUrl) returns Clubs;
+    };
 
   entity Countries    as
     projection on common.Country
