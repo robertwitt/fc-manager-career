@@ -1,4 +1,4 @@
-code,name,flagUrl,scoutingRegion_code,
+code,name,flagUrl,scoutingRegion_code
 AD,Andorra,https://cdn.sofifa.net/flags/ad.png,
 AE,United Arab Emirates,https://cdn.sofifa.net/flags/ae.png,
 AF,Afghanistan,https://cdn.sofifa.net/flags/af.png,
@@ -212,4 +212,4 @@ XK,Kosovo,https://cdn.sofifa.net/flags/xk.png,
 YE,Yemen,,
 ZA,South Africa,https://cdn.sofifa.net/flags/za.png,
 ZM,Zambia,https://cdn.sofifa.net/flags/zm.png,
-ZW,Zimbabwe,https://cdn.sofifa.net/flags/zw.png
+ZW,Zimbabwe,https://cdn.sofifa.net/flags/zw.png,
