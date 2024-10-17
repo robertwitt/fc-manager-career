@@ -1,3 +1,8 @@
 namespace common;
 
-type Url : String(2048);
+type Rating : Integer @assert.range: [
+  1,
+  99
+];
+
+type Url    : String(2048);
