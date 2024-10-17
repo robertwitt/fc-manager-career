@@ -63,6 +63,80 @@ annotate service.ManagerCareers with @(
             Value : active,
         },
     ],
+    UI.HeaderInfo : {
+        TypeName : '{i18n>ManagerCareer}',
+        TypeNamePlural : '{i18n>ManagerCareers}',
+        Title : {
+            $Type : 'UI.DataField',
+            Value : club_ID,
+        },
+        ImageUrl : club.badgeUrl,
+    },
+    UI.HeaderFacets : [
+        
+    ],
+    UI.FieldGroup #Test : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            
+        ],
+    },
+    UI.Facets : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : '{i18n>StartingSeason}',
+            ID : 'i18nStartingSeason',
+            Target : '@UI.FieldGroup#i18nStartingSeason',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : '{i18n>Status}',
+            ID : 'i18nStatus',
+            Target : '@UI.FieldGroup#i18nStatus',
+        },
+    ],
+    UI.FieldGroup #i18nStartingSeason : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : startingSeason_year,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : startingLeague_code,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : startingInternationalCompetition_code,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : startingOverall,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : startingDnaPoints,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : startingTraitPoints,
+            },
+        ],
+    },
+    UI.FieldGroup #i18nStatus : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : started,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : active,
+            },
+        ],
+    },
 );
 
 annotate service.ManagerCareers with {
