@@ -19,6 +19,7 @@
     "@cap-js/sqlite": "^1",
     "@sap/cds-dk": "^8",
     "@sap/ux-specification": "^1.124.2",
+    "axios": "^1.7.7",
     "jest": "^29.7.0"
   },
   "scripts": {
