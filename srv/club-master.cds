@@ -29,10 +29,12 @@ service ClubMasterService @(
 }
 
 annotate ClubMasterService.Clubs with @odata.draft.enabled {
-  name        @mandatory;
-  country     @mandatory;
-  marketSize  @mandatory;
-  stadiumTier @mandatory;
+  name                  @mandatory;
+  country               @mandatory;
+  stadiumTier           @mandatory;
+  marketSize            @mandatory;
+  domesticPrestige      @mandatory;
+  internationalPrestige @mandatory;
 };
 
 annotate ClubMasterService.Countries with @readonly;
