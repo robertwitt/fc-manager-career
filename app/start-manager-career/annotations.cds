@@ -116,6 +116,14 @@ annotate service.ManagerCareers with @(
             },
             {
                 $Type : 'UI.DataField',
+                Value : club.domesticPrestige,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : club.internationalPrestige,
+            },
+            {
+                $Type : 'UI.DataField',
                 Value : startingDnaPoints,
             },
             {
@@ -307,5 +315,13 @@ annotate service.ManagerCareers with {
             ![@UI.TextArrangement] : #TextOnly
         },
     )
+};
+
+annotate service.Clubs with {
+    domesticPrestige @Common.FieldControl : #ReadOnly
+};
+
+annotate service.Clubs with {
+    internationalPrestige @Common.FieldControl : #ReadOnly
 };
 
