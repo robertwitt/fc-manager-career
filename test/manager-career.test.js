@@ -12,6 +12,7 @@ describe("Manager Career service", () => {
       startingDnaPoints: 39,
       startingTraitPoints: 11,
       started: true,
+      active: true,
     });
   });
 

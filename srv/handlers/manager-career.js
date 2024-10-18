@@ -35,7 +35,7 @@ class ManagerCareerService extends cds.ApplicationService {
       startingTraitPoints,
       started: true,
     });
-    return this.read(ManagerCareers, key);
+    return this.activate(ManagerCareers, key);
   }
 
   async activate(ManagerCareers, key) {
