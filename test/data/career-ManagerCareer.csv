@@ -1,2 +1,3 @@
 ID,club_ID,startingSeason_year,startingLeague_code,startingInternationalCompetition_code,startingOverall,startingDnaPoints,startingTraitPoints,started,active
-a6470822-eba2-4a34-9789-a40094b49ef8,38e2f8e7-e857-456c-bf7b-6b402fb632d0,2024,DE1,3,81,43,22,false,true
+a6470822-eba2-4a34-9789-a40094b49ef8,38e2f8e7-e857-456c-bf7b-6b402fb632d0,2024,DE1,3,81,43,22,true,true
+ecff777e-583f-4a25-ba8c-8e44c6d4535b,d0dc3f59-b643-4f80-b2ed-ccbd51c93f60,2024,ENG1,,70,,,false,false

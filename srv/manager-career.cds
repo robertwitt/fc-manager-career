@@ -4,7 +4,11 @@ using {club} from '../db/club';
 
 service ManagerCareerService @(path: '/manager-career') {
 
-  entity ManagerCareers as projection on career.ManagerCareer;
+  entity ManagerCareers as projection on career.ManagerCareer
+    actions {
+      action start() returns ManagerCareers
+    };
+
   entity Clubs          as projection on club.Club;
 
 }

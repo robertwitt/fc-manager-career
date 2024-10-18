@@ -137,6 +137,13 @@ annotate service.ManagerCareers with @(
             },
         ],
     },
+    UI.Identification : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'ManagerCareerService.start',
+            Label : '{i18n>StartCareer}',
+        },
+    ],
 );
 
 annotate service.ManagerCareers with {
