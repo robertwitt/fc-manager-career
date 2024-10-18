@@ -6,7 +6,8 @@ service ManagerCareerService @(path: '/manager-career') {
 
   entity ManagerCareers as projection on career.ManagerCareer
     actions {
-      action start() returns ManagerCareers
+      action start()    returns ManagerCareers;
+      action activate() returns ManagerCareers;
     };
 
   entity Clubs          as projection on club.Club;

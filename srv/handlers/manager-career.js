@@ -37,6 +37,14 @@ class ManagerCareerService extends cds.ApplicationService {
     });
     return this.read(ManagerCareers, key);
   }
+
+  async activate(ManagerCareers, key) {
+    const db = await cds.connect.to("db");
+    const { ManagerCareer } = db.entities("career");
+    await db.update(ManagerCareer).with({ active: false });
+    await db.update(ManagerCareer, key).with({ active: true });
+    return this.read(ManagerCareers, key);
+  }
 }
 
 module.exports = ManagerCareerService;

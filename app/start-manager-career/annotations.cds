@@ -151,6 +151,11 @@ annotate service.ManagerCareers with @(
             Action : 'ManagerCareerService.start',
             Label : '{i18n>StartCareer}',
         },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'ManagerCareerService.activate',
+            Label : '{i18n>ActivateCareer}',
+        },
     ],
 );
 
