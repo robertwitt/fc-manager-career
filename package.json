@@ -50,6 +50,12 @@
               "roles": [
                 "Administrator"
               ]
+            },
+            "manager": {
+              "password": "",
+              "roles": [
+                "FootballManager"
+              ]
             }
           }
         }

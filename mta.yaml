@@ -118,6 +118,10 @@ resources:
             name: FC Career Mode Administrator (${space})
             role-template-references:
               - $XSAPPNAME.Administrator
+          - description: Manage a footbal club in FC Career Mode
+            name: FC Career Mode Manager (${space})
+            role-template-references:
+              - $XSAPPNAME.FootballManager
         tenant-mode: dedicated
         xsappname: fc-manager-career-${org}-${space}
       path: ./xs-security.json

@@ -2,11 +2,13 @@ const cds = require("@sap/cds");
 
 describe("Manager Career service", () => {
   const { POST, GET } = cds.test(__dirname + "/..");
+  const config = { auth: { username: "manager", password: "" } };
 
   it("should start a manager career and calculate points", async () => {
     const { data } = await POST(
       "/manager-career/ManagerCareers(ID=ecff777e-583f-4a25-ba8c-8e44c6d4535b,IsActiveEntity=true)/ManagerCareerService.start",
-      {}
+      {},
+      config
     );
     expect(data).toMatchObject({
       startingDnaPoints: 39,
@@ -19,13 +21,15 @@ describe("Manager Career service", () => {
   it("should activate a manager career and deactivate previous one", async () => {
     const { data } = await POST(
       "/manager-career/ManagerCareers(ID=ecff777e-583f-4a25-ba8c-8e44c6d4535b,IsActiveEntity=true)/ManagerCareerService.activate",
-      {}
+      {},
+      config
     );
     expect(data).toMatchObject({ active: true });
     const {
       data: { active },
     } = await GET(
-      "/manager-career/ManagerCareers(ID=a6470822-eba2-4a34-9789-a40094b49ef8,IsActiveEntity=true)"
+      "/manager-career/ManagerCareers(ID=a6470822-eba2-4a34-9789-a40094b49ef8,IsActiveEntity=true)",
+      config
     );
     expect(active).toBeFalsy();
   });

@@ -3,6 +3,10 @@
     {
       "name": "$XSAPPNAME.Administrator",
       "description": "Administrate basic configuration and master data"
+    },
+    {
+      "name": "$XSAPPNAME.FootballManager",
+      "description": "Manage a footbal club"
     }
   ],
   "attributes": [],
@@ -11,6 +15,12 @@
       "name": "Administrator",
       "description": "Administrate basic configuration and master data",
       "scope-references": ["$XSAPPNAME.Administrator"],
+      "attribute-references": []
+    },
+    {
+      "name": "FootballManager",
+      "description": "Manage a footbal club",
+      "scope-references": ["$XSAPPNAME.FootballManager"],
       "attribute-references": []
     }
   ]

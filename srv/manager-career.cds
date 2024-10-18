@@ -2,7 +2,13 @@ using {career} from '../db/career';
 using {club} from '../db/club';
 
 
-service ManagerCareerService @(path: '/manager-career') {
+service ManagerCareerService @(
+  path    : '/manager-career',
+  restrict: [{
+    grant: ['*'],
+    to   : ['FootballManager']
+  }]
+) {
 
   entity ManagerCareers as projection on career.ManagerCareer
     actions {
